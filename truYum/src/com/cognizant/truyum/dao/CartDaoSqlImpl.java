@@ -49,7 +49,7 @@ public class CartDaoSqlImpl implements CartDao {
 			 con = ConnectionHandler.getConnection();
 			
 			Cart cart=new Cart(menuList,0);
-			String sql=("select * from MENU_ITEMS where ID in(select CT_MENU_ID from CART where CT_USER_ID=?;");
+			String sql=("select * from MENU_ITEMS where ID in(select CT_MENU_ID from CART where CT_USER_ID=?);");
 			ps.setLong(1,userId);
 			ps=con.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
@@ -91,6 +91,12 @@ public class CartDaoSqlImpl implements CartDao {
 		
 				try {
 					 con = ConnectionHandler.getConnection();
+					 String sql=("delete from CART wehere CT_USER_ID=? and CT_MENU_ID=? ;");
+					 ps.setLong(1,userId );
+					 ps.setLong(2,menuItemId );
+					 ps=con.prepareStatement(sql);
+					 int n=ps.executeUpdate();
+					 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,15 +107,11 @@ public class CartDaoSqlImpl implements CartDao {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+		
 				}
-			
-				
-			
-		
-		
-	}
 	
 
+	}
 }
 	
 	
