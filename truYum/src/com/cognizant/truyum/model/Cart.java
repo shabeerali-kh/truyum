@@ -5,6 +5,7 @@ import java.util.List;
 public class Cart {
 	private List<MenuItem> menuItemList;
 	private double total;
+	
 	public List<MenuItem> getMenuItemList() {
 		return menuItemList;
 	}

@@ -96,7 +96,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 			ps=con.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
 			
-			while(rs.next())
+			if(rs.next())
 			{
 				long id=rs.getLong(1);
 				String name=rs.getString(2);
@@ -106,7 +106,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 				String category = rs.getString(6);
 				boolean freeDelivery = rs.getBoolean(7);
 				 item = new MenuItem(id, name, price, active, dateOfLaunch, category, freeDelivery);
-				break;
+				
 			}
 			
 		}catch(ClassNotFoundException  e) {

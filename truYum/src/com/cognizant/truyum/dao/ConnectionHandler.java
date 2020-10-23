@@ -11,6 +11,7 @@ public class ConnectionHandler {
 
 	public static Connection con=null;
 	public static Properties props=new Properties();
+	
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		
 	
