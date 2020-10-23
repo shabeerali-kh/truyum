@@ -1,5 +1,9 @@
 package com.cognizant.truyum.dao;
 
-public class CartEmptyException {
 
+public class CartEmptyException extends Exception {
+	
+	public CartEmptyException() {
+		super();
+	}
 }
