@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,13 +14,13 @@ import com.cognizant.truyum.model.MenuItem;
 public class MenuItemDaoSqlImpl implements MenuItemDao  {
 
 	private static PreparedStatement ps=null;
-	
+	private static Connection con=null;
 	@Override 
 	public List<MenuItem> getMenuItemListAdmin(){
 		
 		List<MenuItem> menuList=new  ArrayList<MenuItem> ();
 	try {
-		Connection con = ConnectionHandler.getConnection();
+		 con = ConnectionHandler.getConnection();
 		String sql="select * from MENU_ITEMS;";
 		ps=con.prepareStatement(sql);
 		
@@ -44,6 +43,13 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		}catch(SQLException e) {
 			e.printStackTrace();
 	
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return menuList;
@@ -55,7 +61,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		List<MenuItem> menuList=new  ArrayList<MenuItem> ();
 		try {
 			
-			Connection con = ConnectionHandler.getConnection();
+			 con = ConnectionHandler.getConnection();
 			String sql="select * from MENU_ITEMS where ACTIVE=TRUE and DATE_OF_LAUNCH < now();";
 			ps=con.prepareStatement(sql);
 			
@@ -78,6 +84,13 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		}catch(SQLException e) {
 			e.printStackTrace();
 	
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return menuList;
@@ -91,7 +104,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		MenuItem item=null;
 		
 		try {
-			Connection con = ConnectionHandler.getConnection();
+			 con = ConnectionHandler.getConnection();
 			String sql="select * from MENU_ITEMS where ID=?;";
 			ps=con.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
@@ -114,6 +127,13 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		}catch(SQLException e) {
 			e.printStackTrace();
 	
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return item;
 			
@@ -124,7 +144,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 	public void modifyMenuItem(MenuItem menuItem) {
 		
 		try {
-			Connection con = ConnectionHandler.getConnection();
+			 con = ConnectionHandler.getConnection();
 			String sql="update MENU_ITEMS set NAME=?,PRICE=?,ACTIVE=?, DATE_OF_LAUNCH=?, CATEGORY=?, FREE_DELIVERY=?,where ID=? ;";
 			
 			ps=con.prepareStatement(sql);
@@ -132,10 +152,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 			ps.setString(1, menuItem.getName());
 			ps.setFloat(2,menuItem.getPrice());
 			ps.setBoolean(3,menuItem.isActive());
-			
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			ps.setString(4, format.format(menuItem.getDateOfLaunch()));
-			
+			ps.setDate(4, (java.sql.Date) menuItem.getDateOfLaunch());
 			ps.setString(5,menuItem.getCategory());
 			ps.setBoolean(6,menuItem.isFreeDelivery());
 			ps.setLong(7, menuItem.getId());
@@ -147,10 +164,15 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		}catch(SQLException e) {
 			e.printStackTrace();
 	
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		
-	
 	}
 	
 	

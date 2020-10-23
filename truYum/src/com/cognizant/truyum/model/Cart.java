@@ -18,6 +18,8 @@ public class Cart {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
+	
 	public Cart(List<MenuItem> menuItemList, double total) {
 		super();
 		this.menuItemList = menuItemList;
