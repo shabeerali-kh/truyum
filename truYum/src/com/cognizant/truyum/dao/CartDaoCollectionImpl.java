@@ -54,14 +54,16 @@ public class CartDaoCollectionImpl implements CartDao {
 	public void removeCartItem(long userId, long menuItemId) {
 		
 		List<MenuItem> menuList=userCarts.get(userId).getMenuItemList();
-		
+		List<MenuItem> removeList=new ArrayList<MenuItem>();
 		for(MenuItem m:menuList) {
 			if(m.getId()==menuItemId) {
-				menuList.remove(m);
+				removeList.add(m);
 			}
 		}
+		menuList.removeAll(removeList);
 		userCarts.get(userId).setMenuItemList(menuList);
+
 	}
-	
+
 	
 }

@@ -62,7 +62,7 @@ public class MenuItemDaoCollectionImpl implements MenuItemDao  {
 		}
 		
 		public MenuItem getMenuItem(long menuItemId) {
-			MenuItem mItem=null;
+			MenuItem mItem=new MenuItem() ;
 			for(MenuItem m:menuItemList) {
 				if(m.getId()==menuItemId) {
 					mItem=m;

@@ -18,12 +18,13 @@ public class MenuItemDaoSqlImplTest {
 		System.out.println("customer list:");
 		testGetMenuItemListCustomer();
 		System.out.println("completed");
+		System.out.println("modify:");
+		testModifyMenuItem();
 		System.out.println("menu item:");
 		testGetMenuItem();
 		System.out.println("completed");
-		System.out.println("modify:");
-		testModifyMenuItem();
-		System.out.println("completed");
+		
+		
 	
 		
 		
@@ -46,7 +47,7 @@ public class MenuItemDaoSqlImplTest {
 	public static void testModifyMenuItem() throws ParseException {
 		MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
 		Date date = DateUtil.convertToDate("01/01/2020");
-		MenuItem mItem=new MenuItem(2,"water",15000.00f,true,date ,"general",false);
+		MenuItem mItem=new MenuItem(6,"water",150.0f,true,date ,"general",false);
 		testObj.modifyMenuItem(mItem);
 	}
 	public static void testGetMenuItem() {

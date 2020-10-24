@@ -6,7 +6,7 @@ import com.cognizant.truyum.model.MenuItem;
 
 public class CartDaoCollectionImplTest {
 
-	// static CartDao testObj=new CartDaoCollectionImpl();
+	 
 	 
 	public static void main(String[] args) {
 		
@@ -20,7 +20,8 @@ public class CartDaoCollectionImplTest {
 	
 	public static void testAddCartItem() {
 		CartDao testObj=new CartDaoCollectionImpl();
-		testObj.addCartItem(1, 2);
+		testObj.addCartItem(1, 1);
+	
 		
 		try {
 			List<MenuItem> cartList=testObj.getAllCartItems(1);
@@ -46,7 +47,7 @@ public class CartDaoCollectionImplTest {
 	
 	public static void testRemoveCartItem() {
 		CartDao testObj=new CartDaoCollectionImpl();
-		testObj.removeCartItem(1,2);
+		testObj.removeCartItem(1,1);
 		List<MenuItem> cartList;
 		try {
 			cartList = testObj.getAllCartItems(1);

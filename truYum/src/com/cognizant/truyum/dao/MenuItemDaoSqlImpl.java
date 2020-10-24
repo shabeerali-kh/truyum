@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,14 +103,15 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		
 		try {
 			 con = ConnectionHandler.getConnection();
-			String sql="update MENU_ITEMS set NAME=?,PRICE=?,ACTIVE=?, DATE_OF_LAUNCH=?, CATEGORY=?, FREE_DELIVERY=?,where ID=? ;";
+			String sql="update MENU_ITEMS set NAME=?,PRICE=?,ACTIVE=?, DATE_OF_LAUNCH=?, CATEGORY=?, FREE_DELIVERY=? where ID=?;";
 			
 			ps=con.prepareStatement(sql);
 			
 			ps.setString(1, menuItem.getName());
 			ps.setFloat(2,menuItem.getPrice());
 			ps.setBoolean(3,menuItem.isActive());
-			ps.setDate(4, (java.sql.Date) menuItem.getDateOfLaunch());
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			ps.setString(4, format.format(menuItem.getDateOfLaunch()));
 			ps.setString(5,menuItem.getCategory());
 			ps.setBoolean(6,menuItem.isFreeDelivery());
 			ps.setLong(7, menuItem.getId());
@@ -146,8 +148,9 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		try {
 			 con = ConnectionHandler.getConnection();
 			String sql="select * from MENU_ITEMS where ID=?;";
-			ps.setLong(1,menuItemId );
 			ps=con.prepareStatement(sql);
+			ps.setLong(1,menuItemId );
+			
 			ResultSet rs=ps.executeQuery();
 			
 			if(rs.next())
