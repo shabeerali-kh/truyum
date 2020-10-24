@@ -56,7 +56,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 	}
 	
 	@Override
-	public  List<MenuItem> GetMenuItemListCustomer(){
+	public  List<MenuItem> getMenuItemListCustomer(){
 		
 		List<MenuItem> menuList=new  ArrayList<MenuItem> ();
 		try {
@@ -95,7 +95,47 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		
 		return menuList;
 		}
+	
+	
+	@Override	
+	public void modifyMenuItem(MenuItem menuItem) {
 		
+		try {
+			 con = ConnectionHandler.getConnection();
+			String sql="update MENU_ITEMS set NAME=?,PRICE=?,ACTIVE=?, DATE_OF_LAUNCH=?, CATEGORY=?, FREE_DELIVERY=?,where ID=? ;";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, menuItem.getName());
+			ps.setFloat(2,menuItem.getPrice());
+			ps.setBoolean(3,menuItem.isActive());
+			ps.setDate(4, (java.sql.Date) menuItem.getDateOfLaunch());
+			ps.setString(5,menuItem.getCategory());
+			ps.setBoolean(6,menuItem.isFreeDelivery());
+			ps.setLong(7, menuItem.getId());
+			
+			int n=ps.executeUpdate();
+			if(n>0)
+					System.out.println("successfully modified");
+			else
+				System.out.println("failed");
+			
+		}catch(ClassNotFoundException  e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+	
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	
 	@Override
 	
@@ -106,6 +146,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 		try {
 			 con = ConnectionHandler.getConnection();
 			String sql="select * from MENU_ITEMS where ID=?;";
+			ps.setLong(1,menuItemId );
 			ps=con.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
 			
@@ -118,7 +159,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 				Date dateOfLaunch = rs.getDate(5);
 				String category = rs.getString(6);
 				boolean freeDelivery = rs.getBoolean(7);
-				 item = new MenuItem(id, name, price, active, dateOfLaunch, category, freeDelivery);
+				item = new MenuItem(id, name, price, active, dateOfLaunch, category, freeDelivery);
 				
 			}
 			
@@ -140,41 +181,7 @@ public class MenuItemDaoSqlImpl implements MenuItemDao  {
 	}
 	
 	
-	@Override	
-	public void modifyMenuItem(MenuItem menuItem) {
-		
-		try {
-			 con = ConnectionHandler.getConnection();
-			String sql="update MENU_ITEMS set NAME=?,PRICE=?,ACTIVE=?, DATE_OF_LAUNCH=?, CATEGORY=?, FREE_DELIVERY=?,where ID=? ;";
-			
-			ps=con.prepareStatement(sql);
-			
-			ps.setString(1, menuItem.getName());
-			ps.setFloat(2,menuItem.getPrice());
-			ps.setBoolean(3,menuItem.isActive());
-			ps.setDate(4, (java.sql.Date) menuItem.getDateOfLaunch());
-			ps.setString(5,menuItem.getCategory());
-			ps.setBoolean(6,menuItem.isFreeDelivery());
-			ps.setLong(7, menuItem.getId());
-			
-			int n=ps.executeUpdate();
-			
-		}catch(ClassNotFoundException  e) {
-			e.printStackTrace();
-		}catch(SQLException e) {
-			e.printStackTrace();
-	
-		}finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
+
 	
 }
 	

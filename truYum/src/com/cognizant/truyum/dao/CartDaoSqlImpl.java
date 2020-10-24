@@ -20,11 +20,16 @@ public class CartDaoSqlImpl implements CartDao {
 		
 		try {
 			 con = ConnectionHandler.getConnection();
-			String sql="insert into  CART(CT_USER_ID,CT_MENU_ID)values(?,?);";
-			ps.setLong(1, userId);
-			ps.setLong(2, menuItemId);
+			String sql="insert into CART(CT_USER_ID,CT_MENU_ID)values(?,?);";
 			ps=con.prepareStatement(sql);
+			ps.setLong(1,userId);
+			ps.setLong(2, menuItemId);
+			
 			int n=ps.executeUpdate();
+			if(n>0)
+					System.out.println("added to cart");
+			else
+				System.out.println("failed to add");
 			ps.clearParameters();	
 			
 		}catch(ClassNotFoundException  e) {
@@ -50,11 +55,12 @@ public class CartDaoSqlImpl implements CartDao {
 			
 			Cart cart=new Cart(menuList,0);
 			String sql=("select * from MENU_ITEMS where ID in(select CT_MENU_ID from CART where CT_USER_ID=?);");
-			ps.setLong(1,userId);
 			ps=con.prepareStatement(sql);
+			ps.setLong(1,userId);
+			
 			ResultSet rs=ps.executeQuery();
 			double  totalPrice =0;
-			while(rs.next())
+			if(rs.next())
 			{
 				long id=rs.getLong(1);
 				String name=rs.getString(2);
@@ -91,11 +97,15 @@ public class CartDaoSqlImpl implements CartDao {
 		
 				try {
 					 con = ConnectionHandler.getConnection();
-					 String sql=("delete from CART wehere CT_USER_ID=? and CT_MENU_ID=? ;");
-					 ps.setLong(1,userId );
-					 ps.setLong(2,menuItemId );
+					 String sql="DELETE FROM CART WHERE CT_MENU_ID = ? AND CT_USER_ID = ?";
 					 ps=con.prepareStatement(sql);
+					 ps.setLong(1,menuItemId  );
+					 ps.setLong(2,userId);
+					 
 					 int n=ps.executeUpdate();
+					 if(n>0)
+						 	System.out.println("removed successfully");
+					 ps.clearParameters();
 					 
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
