@@ -25,15 +25,10 @@ public class MenuItemDaoCollectionImpl implements MenuItemDao  {
 		
 		}
 	
-	
-
-	public static List<MenuItem> getMenuItemList() {
+	public List<MenuItem> getMenuItemListAdmin() {
 		return menuItemList;
 	}
 
-	public static void setMenuItemList(List<MenuItem> menuItemList) {
-		MenuItemDaoCollectionImpl.menuItemList = menuItemList;
-	}
 	
 
 }
