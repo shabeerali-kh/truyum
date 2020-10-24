@@ -7,7 +7,7 @@ import com.cognizant.truyum.model.MenuItem;
 
 public class CartDaoSqlImplTest {
 
-	static CartDaoSqlImpl testObj = new CartDaoSqlImpl();
+	
 	
 	public static void main(String[] args) {
 		System.out.println("Adding to cart:");
@@ -20,10 +20,12 @@ public class CartDaoSqlImplTest {
 	}
 	
 	public static void testAddCartItem() {
+		CartDaoSqlImpl testObj = new CartDaoSqlImpl();
 		testObj.addCartItem(2, 8);
 	}
 	
 	public static void testGetAllCartItem() {
+		CartDaoSqlImpl testObj = new CartDaoSqlImpl();
 		List<MenuItem> cList=new ArrayList<MenuItem>();
 		
 		try {
@@ -37,6 +39,7 @@ public class CartDaoSqlImplTest {
 	}
 	
 	public static void testRemoveCartItem() {
+		CartDaoSqlImpl testObj = new CartDaoSqlImpl();
 		testObj.removeCartItem(2,8);
 	}
 }

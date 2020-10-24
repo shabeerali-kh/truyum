@@ -25,6 +25,10 @@ public class Cart {
 		this.menuItemList = menuItemList;
 		this.total = total;
 	}
+	public Cart(List<MenuItem> menuItemList) {
+		super();
+		this.menuItemList = menuItemList;
+	}
 	@Override
 	public String toString() {
 		return "Cart [menuItemList=" + menuItemList + ", total=" + total + "]";

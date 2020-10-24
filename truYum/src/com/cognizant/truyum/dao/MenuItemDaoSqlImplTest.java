@@ -9,7 +9,7 @@ import com.cognizant.truyum.util.DateUtil;
 
 public class MenuItemDaoSqlImplTest {
 	
-	static  MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
+	 
 	
 	public static void main(String[] args) throws ParseException {
 		System.out.println("Admin list:");
@@ -30,23 +30,27 @@ public class MenuItemDaoSqlImplTest {
 	}
 	
 	public static void testGetMenuItemListAdmin() {
+		MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
 		List<MenuItem> adminList=testObj.getMenuItemListAdmin();
 		for(MenuItem mi:adminList)
 				System.out.println(mi);
 	}
 	
 	public static void testGetMenuItemListCustomer() {
+		MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
 		List<MenuItem> adminList=testObj.getMenuItemListCustomer();
 		for(MenuItem mi:adminList)
 				System.out.println(mi);
 		
 	}
 	public static void testModifyMenuItem() throws ParseException {
+		MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
 		Date date = DateUtil.convertToDate("01/01/2020");
 		MenuItem mItem=new MenuItem(2,"water",15000.00f,true,date ,"general",false);
 		testObj.modifyMenuItem(mItem);
 	}
 	public static void testGetMenuItem() {
+		MenuItemDaoSqlImpl testObj=new MenuItemDaoSqlImpl(); 
 		MenuItem item=testObj.getMenuItem(7);
 		System.out.println(item);
 	}

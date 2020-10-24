@@ -8,7 +8,7 @@ import java.util.Date;
 public class DateUtil {
 
 	
-	public static  Date convertToDate(String date)  {
+	public static  Date convertToDate(String date)   {
 		Date newDate = new Date();
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 		
